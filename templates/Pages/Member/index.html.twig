@@ -1,0 +1,46 @@
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-tools">
+                <a href="{{ path('create_new_member')}}" type="button" class="btn btn-primary">
+                    <i class="fa fa-plus"></i>
+                    Tambah
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table id="table-member" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Kode</th>
+                    <th>Nama Lengkap</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Created at</th>
+                    <th>Created by</th>
+                    <th>Status Aktif</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for member in member_array %}
+                    <tr>
+                        <td>{{ member.kode }}</td>
+                        <td>{{ member.namaLengkap }}</td>
+                        <td>{{ member.tanggalLahir | date('Y-m-d') }}</td>
+                        <td>{{ member.createdAt | date('Y-m-d H:i:s') }}</td>
+                        <td>{{ member.createdBy }}</td>
+                        <td>
+                            <input type="checkbox"
+                                   name="my-checkbox"
+                                    {{ member.aktif ? 'checked' : '' }}
+                                   data-bootstrap-switch
+                                   data-on-text="Aktif"
+                            >
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+</section>

@@ -1,0 +1,78 @@
+<section class="content">
+    {{ form_start(form_type) }}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <div class="card-title">General</div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="inputName">Nama Lengkap</label>
+                        {{ form_widget(form_type.namaLengkap, {'attr':{'class':'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="inputKode">Kode Nama</label>
+                        {{ form_widget(form_type.kode, {'attr':{'class':'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="inputJenisKelamin">Jenis Kelamin</label>
+                        {{ form_widget(form_type.jenisKelamin, {'attr':{'class':'form-inline'}}) }}
+                        <!--<input id="radioJkPerempuan" type="radio" class="form-check-input" name="jenisKelamin" value="P">-->
+                    </div>
+                    <div class="form-group">
+                        <label for="tanggalLahir">Tanggal Lahir</label>
+                        <div id="tanggalLahir" class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                            {{ form_widget(form_type.tanggalLahir) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card card-success">
+                <div class="card-header">
+                    <div class="card-title">Role Assignee</div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="role">Role yang diberikan</label>
+                        <div id="role" class="input-group">
+                            {{ form_widget(form_type.role) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-danger">
+                <div class="card-header">
+                    <div class="card-title">Data Organisasi</div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="role">Asal Institusi</label>
+                        <div id="role" class="input-group">
+                            {{ form_widget(form_type.asalInstitusi) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="level">Level</label>
+                        <div id="level" class="input-group">
+                            {{ form_widget(form_type.level) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a href="{{ path('show_member_list')}}" class="btn btn-secondary">Tutup & Kembali</a>
+            <button type="submit" class="btn btn-primary">Daftarkan Member</button>
+        </div>
+    </div>
+    {{ form_end(form_type) }}
+</section>

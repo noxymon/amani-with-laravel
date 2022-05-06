@@ -1,0 +1,37 @@
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <table id="table-institusi" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Kode</th>
+                        <th>Nama Institusi</th>
+                        <th>Alamat Institusi</th>
+                        <th>Created by</th>
+                        <th>Created at</th>
+                        <th>Status Aktif</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for institusi in institusi_array %}
+                    <tr>
+                        <td>{{ institusi.kode }}</td>
+                        <td>{{ institusi.namaInstitusi }}</td>
+                        <td>{{ institusi.alamatInstitusi }}</td>
+                        <td>{{ institusi.createdAt | date('Y-m-d H:i:s') }}</td>
+                        <td>{{ institusi.createdBy }}</td>
+                        <td>
+                            <input type="checkbox"
+                                   name="my-checkbox"
+                                    {{ institusi.aktif ? 'checked' : '' }}
+                                   data-bootstrap-switch
+                                   data-on-text="Aktif">
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+</section>

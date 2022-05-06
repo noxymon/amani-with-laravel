@@ -1,0 +1,32 @@
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <table id="table-materi" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Nama Materi</th>
+                        <th>Level materi</th>
+                        <th>Created by</th>
+                        <th>Created at</th>
+                        <th>Status Aktif</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for materi in materi_array %}
+                    <tr>
+                        <td>{{ materi.namaMateri }}</td>
+                        <td>{{ materi.labelLevel }}</td>
+                        <td>{{ materi.createdAt | date('Y-m-d H:i:s') }}</td>
+                        <td>{{ materi.createdBy }}</td>
+                        <td><input type="checkbox" name="my-checkbox" {{ materi.aktif ? 'checked' : '' }}
+                                   data-bootstrap-switch
+                                   data-on-text="Aktif"
+                            ></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+</section>
