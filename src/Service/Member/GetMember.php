@@ -2,22 +2,11 @@
 
 namespace App\Service\Member;
 
-use App\Repository\MasterMemberRepository;
 use App\Service\Materi\Model\MateriOutput;
 use App\Service\Member\Model\MemberOutput;
 
-class GetMember
+class GetMember extends AbstractMember
 {
-    private MasterMemberRepository $masterMemberRepository;
-
-    /**
-     * @param MasterMemberRepository $masterMemberRepository
-     */
-    public function __construct(MasterMemberRepository $masterMemberRepository)
-    {
-        $this->masterMemberRepository = $masterMemberRepository;
-    }
-
     /**
      * @return MateriOutput[]
      */

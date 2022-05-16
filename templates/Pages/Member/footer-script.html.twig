@@ -21,7 +21,7 @@
             paging: true,
             info: true,
             searching: false,
-        })
+        });
 
         $("input[data-bootstrap-switch]").each(function(){
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
@@ -29,6 +29,12 @@
 
         $('[data-mask]').inputmask();
 
-        $('.select2').select2()
+        $('.select2').select2();
+
+        {% for label, messages in app.flashes(['success', 'error']) %}
+            {% for message in messages %}
+                toastr.{{ label }}("{{ message }}");
+            {% endfor %}
+        {% endfor %}
     });
 </script>

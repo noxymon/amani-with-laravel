@@ -6,35 +6,29 @@ use App\Controller\Dashboard\Model\AddMember;
 use App\Controller\Dashboard\Model\MasterMemberRequest;
 use App\Controller\Dashboard\Model\MasterMemberResponse;
 use App\Controller\Dashboard\Type\AddMemberType;
-use App\Service\Institusi\GetInstitusi;
-use App\Service\Level\GetLevel;
 use App\Service\Member\GetMember;
-use App\Service\Role\GetRole;
+use App\Service\Member\Model\MemberInput;
+use App\Service\Member\SaveMember;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MasterMemberController extends AbstractController
 {
-    private GetRole $getRole;
-    private GetLevel $getLevel;
     private GetMember $getMember;
-    private GetInstitusi $getInstitusi;
+    private SaveMember $saveMember;
 
     /**
      * @param GetMember $getMember
-     * @param GetInstitusi $getInstitusi
-     * @param GetLevel $getLevel
-     * @param GetRole $getRole
+     * @param SaveMember $saveMember
      */
-    public function __construct(GetMember $getMember, GetInstitusi $getInstitusi, GetLevel $getLevel, GetRole $getRole)
+    public function __construct(GetMember $getMember, SaveMember $saveMember)
     {
         $this->getMember = $getMember;
-        $this->getInstitusi = $getInstitusi;
-        $this->getLevel = $getLevel;
-        $this->getRole = $getRole;
+        $this->saveMember = $saveMember;
     }
 
     #[Route('/master/member', methods: ['GET'], name: 'show_member_list')]
@@ -58,8 +52,10 @@ class MasterMemberController extends AbstractController
         $form = $this->createForm(AddMemberType::class, new AddMember());
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $addMember = $form->getData();
-            return $this->redirectToRoute('show_dashboard');
+            $memberInput = $this->getMemberInputFrom($form);
+            $this->saveMember->save($memberInput);
+            $this->addFlash('success', 'Member Saved Successfully');
+            return $this->redirectToRoute('show_member_list');
         }
 
         return $this->renderForm(
@@ -71,5 +67,25 @@ class MasterMemberController extends AbstractController
                 'form_type'=>$form
             ]
         );
+    }
+
+    /**
+     * @param FormInterface $form
+     * @return MemberInput
+     */
+    private function getMemberInputFrom(FormInterface $form): MemberInput
+    {
+        /**
+         * @var AddMember $addMember
+         */
+        $addMember = $form->getData();
+        $memberInput = new MemberInput();
+        $memberInput->setAktif(true);
+        $memberInput->setCreatedBy('SYS');
+        $memberInput->setCreatedAt(new DateTime());
+        $memberInput->setKode($addMember->getKode());
+        $memberInput->setNamaLengkap($addMember->getNamaLengkap());
+        $memberInput->setTanggalLahir($addMember->getTanggalLahir());
+        return $memberInput;
     }
 }
