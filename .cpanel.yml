@@ -1,0 +1,7 @@
+deployment:
+  tasks:
+    - export DEPLOY_DIR=/home/noxymonw/app.noxymon.web.id
+    - /bin/cp -r src $DEPLOY_DIR
+    - /bin/cp -r templates $DEPLOY_DIR
+    - bin/rm -r /home/noxymonw/app.noxymon.web.id/var/*
+    - bin/rm -r /home/noxymonw/app.noxymon.web.id/cache/*
